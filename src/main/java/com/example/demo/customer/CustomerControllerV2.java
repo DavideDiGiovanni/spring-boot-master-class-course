@@ -3,11 +3,11 @@ package com.example.demo.customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
-@RequestMapping(path = "api/v2/customer")
+@RequestMapping(path = "api/v2/customers")
 @RestController
 public class CustomerControllerV2 {
 
@@ -18,13 +18,18 @@ public class CustomerControllerV2 {
         this.customerService = customerService;
     }
 
-    @GetMapping(value = "all")
+    @GetMapping
     List<Customer> getCustomers() {
-        return Collections.singletonList(new Customer(
-                0L,
-                "v2",
-                "pass2"
-        ));
+        return customerService.getCustomers();
+    }
+
+    @GetMapping(path = "{customerId}")
+    Customer getCustomer(@PathVariable("customerId") Long id) {
+        return customerService.getCustomers()
+                .stream()
+                .filter(customer -> Objects.equals(customer.getId(), id))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("Customer not found"));
     }
 
     @PostMapping
