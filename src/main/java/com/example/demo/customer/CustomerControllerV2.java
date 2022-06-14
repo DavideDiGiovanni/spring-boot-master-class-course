@@ -3,9 +3,7 @@ package com.example.demo.customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 @RequestMapping(path = "api/v2/customers")
 @RestController
