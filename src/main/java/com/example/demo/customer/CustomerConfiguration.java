@@ -11,9 +11,15 @@ public class CustomerConfiguration {
     @Value("${app.useFakeCustomerRepo:false}")
     private Boolean useFakeCustomerRepo;
 
+    @Value("${info.company.name}")
+    private String companyName;
+
     @Bean
     CommandLineRunner commandLineRunner() {
-        return args -> System.out.println("Command line runner hooray!");
+        return args -> {
+            System.out.println("Command line runner hooray!");
+            System.out.println(companyName);
+        };
     }
 
     @Bean
